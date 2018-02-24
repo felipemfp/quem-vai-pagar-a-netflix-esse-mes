@@ -1,21 +1,45 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+import FpAvatar from './avatars/fp.png';
+import FbAvatar from './avatars/fb.png';
+import BeAvatar from './avatars/be.png';
+
+const payers = {
+  'fp': { name: 'Felipe', avatar: FpAvatar },
+  'fb': { name: 'Francisco', avatar: FbAvatar },
+  'be': { name: 'Beatriz', avatar: BeAvatar }
+};
+
+const monthsToPay = ['fb', 'fp', 'be', 'fp', 'fb', 'fp', 'be', 'fp', 'fb', 'fp', 'be', 'fp'];
+
+const Item = ({currentMonth, month}) => {
+  const payer = payers[monthsToPay[month]];
+
+  return (
+    <div className={month === currentMonth ? 'App-item-current' : 'App-item'}>
+      {payer.name}
+    </div>
+  );
+}
+
+const App = () => {
+  const currentMonth = new Date().getMonth();
+  const currentPayer = payers[monthsToPay[currentMonth]];
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1 className="App-title">Quem vai pagar a Netflix esse mês?</h1>
+        <img src={currentPayer.avatar} className="App-logo" alt="logo" />
+      </header>
+      <div>
+        {monthsToPay.map((payerId, month) => 
+          <Item currentMonth={currentMonth} month={month} />)
+        }
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default App;
