@@ -35,8 +35,12 @@ const App = () => {
       </header>
       <div>
         {monthsToPay.map((payerId, month) => 
-          <Item currentMonth={currentMonth} month={month} />)
-        }
+          <Item 
+            currentMonth={currentMonth} 
+            month={month}
+            key={month}
+          />
+        )}
       </div>
     </div>
   );
